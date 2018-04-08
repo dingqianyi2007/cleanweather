@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cleanweather.android.db.City;
 import com.cleanweather.android.db.County;
@@ -148,7 +149,7 @@ public class ChooseAreaFragment extends Fragment {
            currentLevel = LEVEL_CITY;
        }else {
           int provinceCode=selectedProvince.getProvinceCode();
-          String address="http://guolin.tech/api/china" + provinceCode;
+          String address="http://guolin.tech/api/china/" + provinceCode;
           queryFromServer(address,"city");
        }
     }
@@ -170,7 +171,7 @@ public class ChooseAreaFragment extends Fragment {
         }else {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode=selectedCity.getCityCode();
-            String address="http://guolin.tech/api/china" + provinceCode + "/" + cityCode;
+            String address="http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
             queryFromServer(address,"county");
         }
 
@@ -178,13 +179,21 @@ public class ChooseAreaFragment extends Fragment {
     /**
      *
      */
+    @TargetApi(23)
     private void queryFromServer(String address,final String type){
        showProgressDialog();
         HttpUtil.sendOkHttpRequest(address, new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
-
+             //
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        closeProgressDialog();
+                        Toast.makeText(getContext(),"加载失败",Toast.LENGTH_SHORT);
+                    }
+                });
             }
 
             @Override
@@ -203,10 +212,37 @@ public class ChooseAreaFragment extends Fragment {
                        @Override
                        public void run() {
                            closeProgressDialog();
+                           if("province".equals(type)){
+                               queryProvinces();
+                           }else if("city".equals(type)){
+                               queryCities();
+                           }else if("county".equals(type)){
+                               queryCounties();
+                           }
                        }
                    });
                }
             }
         });
+    }
+    /**
+     *
+     *
+     */
+    private void showProgressDialog(){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("正在加载...");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
+        progressDialog.show();
+    }
+    /**
+     *
+     */
+    private void closeProgressDialog(){
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 }
