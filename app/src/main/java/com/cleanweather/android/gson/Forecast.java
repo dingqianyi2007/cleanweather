@@ -16,6 +16,7 @@ public class Forecast {
     public Temperature temperature;
 
     public class More{
+
      @SerializedName("txt_d")
       public String info;
     }

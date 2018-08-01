@@ -96,7 +96,5 @@ public class Utility {
             e.printStackTrace();
         }
         return  null;
-
-
     }
 }
