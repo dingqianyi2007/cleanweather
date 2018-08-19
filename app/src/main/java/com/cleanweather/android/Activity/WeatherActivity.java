@@ -1,5 +1,6 @@
 package com.cleanweather.android.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.cleanweather.android.R;
 import com.cleanweather.android.gson.Forecast;
 import com.cleanweather.android.gson.Weather;
+import com.cleanweather.android.service.AutoUpdateService;
 import com.cleanweather.android.util.HttpUtil;
 import com.cleanweather.android.util.Utility;
 
@@ -163,6 +165,7 @@ public class WeatherActivity extends AppCompatActivity {
                });
             }
         });
+        loadBingPic();
     }
     /**
      * 处理并展示Weather实体类中的数据
@@ -200,6 +203,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
+        startService(intent);
     }
 
     private void loadBingPic(){
