@@ -12,21 +12,21 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<android.suppowrt.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<ScrollView
-    android:id="@+id/weather_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:overScrollMode="never">
-    <LinearLayout
-        android:orientation="vertical"
+      <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
+         <ScrollView
+          android:id="@+id/weather_layout"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:scrollbars="none"
+          android:overScrollMode="never">
+           <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:fitsSystemWindows="true">
 
         <include layout="@layout/title"/>
 
@@ -37,12 +37,12 @@
         <include layout="@layout/aqi"/>
 
         <include layout="@layout/suggestion"/>
-    </LinearLayout>
-</ScrollView>
-</android.suppowrt.v4.widget.SwipeRefreshLayout>
+              </LinearLayout>
+            </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
         <fragment
             android:id="@+id/choose_area_fragment"
-            android:name="com.cleaneather.android.ChooseAreaFragment"
+            android:name="com.cleanweather.android.ChooseAreaFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"/>
